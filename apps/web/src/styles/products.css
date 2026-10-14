@@ -1,0 +1,121 @@
+
+/* 
+  ========================================
+  PRODUCTS PAGE STYLES
+  ========================================
+  This file contains simple CSS rules for the Products Page and Product Cards.
+*/
+
+/* 
+  PRODUCT GRID
+  The layout that holds all the product cards.
+*/
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 column on mobile */
+  gap: 2rem; /* Space between cards */
+  margin-top: 2rem;
+}
+
+/* 2 columns on tablets */
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3 columns on desktops */
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 
+  PRODUCT CARD
+  The individual card for each product.
+*/
+.simple-product-card {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow: hidden; /* Keeps the image inside the rounded corners */
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.simple-product-card:hover {
+  border-color: hsla(var(--primary), 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px hsla(var(--primary), 0.2);
+}
+
+/* The image container at the top of the card */
+.product-card-image-container {
+  width: 100%;
+  aspect-ratio: 4/3; /* Keeps the image proportion consistent */
+  background-color: hsl(var(--muted));
+  overflow: hidden;
+  position: relative;
+}
+
+.product-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the space without stretching */
+  transition: transform 0.5s ease;
+}
+
+.simple-product-card:hover .product-card-image {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* The content area below the image */
+.product-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Pushes the footer to the bottom */
+}
+
+/* The category badge */
+.product-category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: hsla(var(--primary), 0.1);
+  color: hsl(var(--primary));
+  border: 1px solid hsla(var(--primary), 0.3);
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+}
+
+/* 
+  PRODUCT DETAIL PAGE
+  Styles for the single product view.
+*/
+.product-detail-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .product-detail-container {
+    grid-template-columns: 1fr 1fr; /* Image on left, details on right */
+    align-items: start;
+  }
+}
+
+.product-detail-image {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  overflow: hidden;
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLMN Sound - Premium music production tools</title>
+  <meta name="description" content="Discover premium EDM sample packs and presets by SLMN Sound.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Version Toggle Buttons styles for Vanilla HTML */
+    .btn--version {
+      border-color: var(--card-border);
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+    .btn--version:hover {
+      border-color: hsla(191, 100%, 50%, 0.5);
+      color: var(--primary);
+      background-color: hsla(191, 100%, 50%, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="header" id="header">
+    <div class="container header__container">
+      <a href="#" class="brand">
+        <div class="brand__logo">S</div>
+        <span class="brand__name">SLMN Sound</span>
+      </a>
+
+      <nav class="nav desktop-nav">
+        <a href="#" class="nav__link active">Home</a>
+        <a href="#" class="nav__link">Products</a>
+        <a href="#" class="nav__link">Sounds</a>
+        <a href="#" class="nav__link">Media</a>
+       <!--  <a href="#" class="nav__link">Web Studio</a> -->
+      </nav>
+
+      <div class="header__actions desktop-actions">
+        <!-- Theme Toggle -->
+        <button class="btn-icon" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+
+        <!-- Version Selectors -->
+        <a href="/" class="btn btn--outline btn--sm btn--version">React</a>
+        <a href="/lite" class="btn btn--outline btn--sm btn--version">Lite</a>
+
+        <div style="width: 1px; height: 24px; background: var(--card-border); margin: 0 4px;"></div>
+
+        <a href="#" class="btn btn--outline btn--sm">Login</a>
+        <a href="#" class="btn btn--primary btn--sm">Sign Up</a>
+      </div>
+
+      <button class="btn-icon mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-nav">
+      <div class="mobile-nav__container">
+        <a href="#" class="mobile-nav__link active">Home</a>
+        <a href="#" class="mobile-nav__link">Products</a>
+        <a href="#" class="mobile-nav__link">Sounds</a>
+        <a href="#" class="mobile-nav__link">Media</a>
+        <!-- <a href="#" class="mobile-nav__link">Web Studio</a> -->
+        
+        <div class="mobile-nav__divider"></div>
+        
+        <!-- Mobile Version Selectors -->
+        <a href="/" class="mobile-nav__link" style="color: var(--text-muted); display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>
+          React App
+        </a>
+        <a href="/lite" class="mobile-nav__link" style="color: var(--text-muted); display: flex; align-items: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Lite App
+        </a>
+
+        <div class="mobile-nav__divider"></div>
+
+        <a href="#" class="btn btn--outline mobile-nav__btn">Login</a>
+        <a href="#" class="btn btn--primary mobile-nav__btn">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero fade-in-section">
+      <div class="hero__bg"></div>
+      <div class="container hero__container">
+        <div class="hero__content">
+          <div class="badge">
+            <span class="badge__text">New Sample Packs Available</span>
+          </div>
+          <h1 class="hero__title">
+            Elevate your sound with<br>
+            <span class="text-gradient">SLMN Sound tools</span>
+          </h1>
+          <p class="hero__subtitle">
+            Professional sample packs, Serum presets, and Phase Plant presets designed to inject pure energy into your productions.
+          </p>
+          <div class="hero__actions">
+            <a href="#" class="btn btn--primary btn--lg">
+              Browse Products
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn btn--outline btn--lg hero__btn-outline">Create Account</a>
+          </div>
+        </div>
+        <div class="hero__visual">
+          <div class="visual-card">
+            <h3 class="visual-card__title"></h3>
+            <div class="visual-card__graphic">
+              <div class="wave-bar" style="height: 40%"></div>
+              <div class="wave-bar" style="height: 70%"></div>
+              <div class="wave-bar" style="height: 100%"></div>
+              <div class="wave-bar" style="height: 60%"></div>
+              <div class="wave-bar" style="height: 80%"></div>
+              <div class="wave-bar" style="height: 30%"></div>
+              <div class="wave-bar" style="height: 90%"></div>
+            </div>
+            <p class="visual-card__desc"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features fade-in-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Industry-standard Arsenal</h2>
+          <p class="section-subtitle">Access top-tier production tools trusted by professional artists at SLMN Sound.</p>
+        </div>
+
+        <div class="features__grid">
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+            </div>
+            <h3 class="feature-card__title">Premium quality</h3>
+            <p class="feature-card__desc">Professional-grade samples and presets crafted by industry experts.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            </div>
+            <h3 class="feature-card__title">Instant access</h3>
+            <p class="feature-card__desc">Download your purchases immediately after checkout.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            </div>
+            <h3 class="feature-card__title">Secure payments</h3>
+            <p class="feature-card__desc">Safe and encrypted transactions powered by secure gateways.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta fade-in-section">
+      <div class="container cta__container">
+        <h2 class="cta__title">Ready to start creating?</h2>
+        <p class="cta__subtitle">Join thousands of producers pushing the boundaries of electronic music with SLMN Sound.</p>
+        <a href="#" class="btn btn--primary btn--lg">
+          Explore the Catalog
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="ml-2"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__glow"></div>
+    <div class="container footer__container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="brand mb-4">
+            <div class="brand__logo">S</div>
+            <span class="brand__name">SLMN Sound</span>
+          </a>
+          <p class="footer__desc">Premium EDM production tools for music producers worldwide. Elevate your sound with industry-standard samples and presets.</p>
+        </div>
+        
+        <div class="footer__links">
+          <h4 class="footer__heading">Quick Links</h4>
+          <ul class="footer__list">
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">Account</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__links">
+          <h4 class="footer__heading">Legal</h4>
+          <ul class="footer__list">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <p>&copy; 2026 SLMN Sound. All rights reserved.</p>
+        <p class="footer__powered">Powered by <span>SLMN Technology</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

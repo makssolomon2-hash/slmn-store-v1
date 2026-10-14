@@ -1,0 +1,338 @@
+
+================================================================================
+SLMN SOUND - FULL PROJECT DOCUMENTATION & RECREATION GUIDE
+================================================================================
+
+This document serves as the comprehensive blueprint for the SLMN Sound application.
+It covers architecture, file structures, component logic, and the exact steps
+needed to recreate or extend the platform.
+
+TABLE OF CONTENTS:
+1. PROJECT OVERVIEW
+2. COMPLETE FILE STRUCTURE
+3. DEPENDENCIES & SETUP
+4. STEP-BY-STEP SETUP
+5. ARCHITECTURE OVERVIEW
+6. DATABASE SCHEMA
+7. AUTHENTICATION SYSTEM
+8. PAGES & COMPONENTS
+9. DARK/LIGHT MODE
+10. 3D VIEWER & INTERACTIVE MODELS
+11. SUBSCRIPTION SYSTEM
+12. CART & CHECKOUT
+13. AUDIO PLAYER
+14. STYLING APPROACH
+15. ROUTING STRUCTURE
+16. STATE MANAGEMENT
+17. FILE UPLOAD & STORAGE
+18. COMMON PATTERNS
+19. HOW TO ADD NEW FEATURES
+20. DEPLOYMENT
+21. TROUBLESHOOTING
+22. LEARNING NOTES
+
+================================================================================
+(1) PROJECT OVERVIEW
+================================================================================
+SLMN Sound is a premium e-commerce platform for electronic music producers. 
+It sells sample packs, synth presets, and digital tools.
+
+Key Features:
+- Product catalog with categories (Samples, Presets)
+- Live Audio Auditioning (Waveform visualization)
+- Interactive 3D WebGL Studio/Visualizations using Three.js
+- Cart and Checkout system (Stripe integration ready)
+- User Accounts, Purchase History, and Subscription Management
+- Full Dark/Light mode support with glowing cyan accent themes
+
+Tech Stack:
+- Frontend: React 18, Vite, React Router 7
+- Styling: Tailwind CSS, shadcn/ui, Custom CSS Variables
+- Animations: Framer Motion
+- 3D/Graphics: Three.js, React Three Fiber (implied/custom), WebGL
+- Audio: Wavesurfer.js
+- Database & Auth: PocketBase v0.25+
+
+================================================================================
+(2) COMPLETE FILE STRUCTURE
+================================================================================
+apps/web/
+├── index.html                   # HTML Entry point
+├── package.json                 # Dependencies
+├── postcss.config.js            # Tailwind PostCSS setup
+├── tailwind.config.js           # Tailwind Theme configuration
+├── vite.config.js               # Vite build configuration
+└── src/
+    ├── App.jsx                  # Main Routing and Providers
+    ├── main.jsx                 # React DOM Root render
+    ├── index.css                # Global styles & Theme CSS Variables
+    ├── components/              # Reusable UI components
+    │   ├── AudioPlayerCard.jsx  # Card with waveform and play controls
+    │   ├── CheckoutButton.jsx   # Stripe integration button
+    │   ├── Footer.jsx
+    │   ├── Header.jsx           # Main Navigation
+    │   ├── OrderHistoryCard.jsx # Purchase history item
+    │   ├── ProductCard.jsx      # E-commerce product card
+    │   ├── ProtectedRoute.jsx   # Auth guard wrapper
+    │   ├── ScrollToTop.jsx      # Router scroll reset
+    │   ├── SoundUploadModal.jsx # Admin/User upload interface
+    │   ├── SubscriptionManagement.jsx # Subscription UI
+    │   ├── ThreeDVisualization.jsx # Three.js canvas
+    │   ├── WaveformVisualization.jsx # Wavesurfer.js wrapper
+    │   ├── ui/                  # shadcn/ui auto-installed components
+    │   └── ... (WaveformVariations, etc.)
+    ├── contexts/
+    │   ├── AuthContext.jsx      # Pocketbase auth state
+    │   └── CartContext.jsx      # Shopping cart state (localStorage)
+    ├── hooks/
+    │   └── useTheme.js          # Dark/Light mode hook
+    ├── lib/
+    │   ├── pocketbaseClient.js  # PB initialization
+    │   ├── apiServerClient.js   # API Wrapper
+    │   └── utils.js             # Tailwind 'cn' merger
+    ├── pages/                   # Route components
+    │   ├── HomePage.jsx
+    │   ├── ProductsPage.jsx
+    │   ├── ProductDetailPage.jsx
+    │   ├── SoundPreviewPage.jsx
+    │   ├── MediaPage.jsx
+    │   ├── StudioPage.jsx
+    │   ├── CartPage.jsx
+    │   ├── AccountDashboard.jsx
+    │   ├── LoginPage.jsx
+    │   ├── SignupPage.jsx
+    │   └── ... (Success/Cancel pages)
+    ├── styles/                  # Supplemental CSS
+    └── lite/                    # Beginner friendly sub-app
+
+================================================================================
+(3) DEPENDENCIES & SETUP
+================================================================================
+Core Dependencies:
+- react, react-dom (^18.3.1)
+- react-router-dom (^7.13.0)
+- framer-motion (^11.15.0) - For page transitions and smooth UI
+- lucide-react (^0.469.0) - Consistent SVG icons
+- pocketbase (^0.25.0) - CRITICAL: Version 0.25.0+ required for proper auth API
+- three (^0.160.0) - For 3D Audio visualization
+- wavesurfer.js (^7.0.0) - Audio waveform rendering
+- tailwindcss (^3.4.17) - Utility-first styling
+- sonner (^2.0.7) - Toast notifications
+
+================================================================================
+(4) STEP-BY-STEP SETUP
+================================================================================
+1. Initialize Project:
+   npm create vite@latest slmn-sound -- --template react
+   cd slmn-sound
+   npm install
+
+2. Install Key Dependencies:
+   npm install react-router-dom pocketbase framer-motion lucide-react three wavesurfer.js react-helmet sonner
+
+3. Setup Tailwind CSS:
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init -p
+
+4. Configure PocketBase:
+   Download PocketBase, start it: `./pocketbase serve`
+   Create the collections detailed in Section 6.
+
+5. Start Dev Server:
+   npm run dev
+
+================================================================================
+(5) ARCHITECTURE OVERVIEW
+================================================================================
+React Router Structure:
+<Router>
+  <AuthProvider>
+    <CartProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/account" element={<ProtectedRoute><AccountDashboard /></ProtectedRoute>} />
+      </Routes>
+    </CartProvider>
+  </AuthProvider>
+</Router>
+
+- AuthProvider sits at the top to secure routes.
+- CartProvider wraps the app so cart state is accessible globally (e.g., Header badge).
+- Page components fetch their own data using `pb.collection().getFullList()`.
+- Shared UI (Header, Footer) are rendered inside individual pages or layouts.
+
+================================================================================
+(6) DATABASE SCHEMA (PocketBase)
+================================================================================
+1. users (Type: Auth)
+   - email, password, name, avatar (file)
+
+2. products (Type: Base)
+   - id, name (text), description (text), price (number)
+   - category (select: Sample Packs, Serum Presets, etc)
+   - productImage (file), productFile (file, digital download)
+   - fileFormat (text), demoUrl (text)
+
+3. orders (Type: Base)
+   - userId (text/relation), stripeSessionId (text), totalAmount (number)
+   - status (select: pending, completed, failed), items (json)
+
+4. orderItems (Type: Base)
+   - orderId (relation to orders), productId (text), productName (text)
+   - price (number), downloadUrl (text)
+
+5. sounds (Type: Base)
+   - title (text), description (text), category (select)
+   - audioUrl (text), duration (number), audioFile (file)
+
+CRITICAL PB CONFIG: Disable AutoCancel. 
+Always use `{ $autoCancel: false }` in PB API calls in React.
+
+================================================================================
+(7) AUTHENTICATION SYSTEM
+================================================================================
+Managed in `src/contexts/AuthContext.jsx`.
+
+Flow:
+1. `pb.authStore.isValid` determines initial auth state.
+2. Login: `pb.collection('users').authWithPassword(email, password, { $autoCancel: false })`
+3. Signup: Creates record, then automatically logs in.
+4. Logout: `pb.authStore.clear()`
+5. ProtectedRoutes check `isAuthenticated` and redirect to `/login` if false.
+
+================================================================================
+(8) PAGES & COMPONENTS
+================================================================================
+HomePage: Hero section with dynamic 3D Background. Product feature highlights.
+ProductsPage: Fetches `products` collection. Renders `ProductCard` grid. Filters by category.
+ProductDetailPage: Fetches single product via `useParams()`. Adds to cart.
+MediaPage: Showcases DJ mixes, tutorials, resources using dynamic tabs.
+StudioPage: Full interactive Three.js workspace for audio visualizations.
+AccountDashboard: Pulls `orders` where `userId = currentUser.id`. Manages subscriptions.
+CartPage: Maps context `cart` array, calculates totals, triggers checkout.
+
+================================================================================
+(9) DARK/LIGHT MODE
+================================================================================
+In `index.css`:
+:root { --background: 0 0% 100%; ... }
+.dark { --background: 0 0% 5%; ... }
+
+The `useTheme` hook toggles the `.dark` class on the `<html>` element and saves 
+the preference in localStorage. Tailwind uses `dark:bg-...` or simply adapts 
+to `hsl(var(--background))` automatically based on the applied class.
+
+================================================================================
+(10) 3D VIEWER & INTERACTIVE MODELS
+================================================================================
+Implemented using vanilla Three.js inside React `useEffect`.
+- `mountRef` captures the DOM node for the WebGL canvas.
+- A `scene`, `camera`, and `renderer` are instantiated.
+- Visualizations (e.g., Particle systems, Icosahedrons) update rotation inside `requestAnimationFrame`.
+- Cleanup is critical: `cancelAnimationFrame`, `dispose()` geometries/materials, and remove DOM elements on unmount.
+
+================================================================================
+(11) SUBSCRIPTION SYSTEM
+================================================================================
+Component: `SubscriptionManagement.jsx`
+- Simulates or fetches from a `subscriptions` PB collection.
+- Displays current tier, Next Billing Date, and Action Buttons (Upgrade/Cancel).
+- Includes mock loading states and success/error Toasts.
+- When Stripe is fully integrated, buttons here redirect to Stripe Customer Portal.
+
+================================================================================
+(12) CART & CHECKOUT
+================================================================================
+`CartContext.jsx`:
+- Stores cart array in `localStorage`.
+- `addToCart`: checks for existing ID, increments quantity or appends to array.
+- `updateQuantity`: increments/decrements. Removes if quantity <= 0.
+- Checkout flow uses `CheckoutButton.jsx` which talks to an API server `/stripe/create-checkout` 
+  using `apiServerClient.fetch`.
+
+================================================================================
+(13) AUDIO PLAYER
+================================================================================
+Components: `AudioPlayerCard.jsx`, `WaveformVisualization.jsx`
+- Uses `wavesurfer.js` to render audio waveforms dynamically.
+- `WaveformVisualization` wraps wavesurfer in a `forwardRef` to expose play/pause/seek controls to parent.
+- `pb.files.getUrl(record, record.audioFile)` constructs secure URLs for PB file fields.
+
+================================================================================
+(14) STYLING APPROACH
+================================================================================
+- Variables: HSL values defined in `index.css` (e.g., `222.2 84% 4.9%`).
+- Applied via Tailwind: `bg-background`, `text-primary`.
+- Semantic pairing: Always pair `bg-primary` with `text-primary-foreground`.
+- Glassmorphism: `bg-card/80 backdrop-blur-md`.
+- Neumorphic Neon: `drop-shadow-[0_0_8px_hsl(var(--primary)/0.6)]` for glowing elements in Dark mode.
+
+================================================================================
+(15) ROUTING STRUCTURE
+================================================================================
+/ -> HomePage
+/products -> ProductsPage
+/product/:id -> ProductDetailPage
+/sounds -> SoundPreviewPage
+/media -> MediaPage
+/studio -> StudioPage
+/cart -> CartPage
+/login -> LoginPage
+/signup -> SignupPage
+/account -> ProtectedRoute wrapping AccountDashboard
+
+================================================================================
+(16) STATE MANAGEMENT
+================================================================================
+- Local State (`useState`): Tab switching, form inputs, loading toggles.
+- Context (`useAuth`, `useCart`): Global user data, cart items.
+- No Redux or Zustand is needed. PB acts as the single source of truth for remote state.
+
+================================================================================
+(17) FILE UPLOAD & STORAGE
+================================================================================
+PocketBase File Fields:
+- When uploading: Use `FormData` to append files and text fields, then send via `pb.collection().create(formData)`.
+- When rendering: `const url = pb.files.getUrl(record, record.productImage, { thumb: '100x100' })`
+
+================================================================================
+(18) COMMON PATTERNS
+================================================================================
+- Error Boundaries/Handling: try/catch blocks in async functions, displaying `toast.error(err.message)`.
+- Loading Skeletons: `<div className="animate-pulse bg-muted rounded-xl h-48" />`.
+- Button disabling on submit: `<Button disabled={loading}>...</Button>`.
+
+================================================================================
+(19) HOW TO ADD NEW FEATURES
+================================================================================
+Example: Adding a "Blog"
+1. Add PB Collection: `blog_posts` (title, content, image, author).
+2. Create `src/pages/BlogPage.jsx`.
+3. Fetch data: `pb.collection('blog_posts').getFullList({ $autoCancel: false })`.
+4. Map over data and render UI.
+5. Add route to `App.jsx`: `<Route path="/blog" element={<BlogPage />} />`.
+6. Add link to `Header.jsx`.
+
+================================================================================
+(20) DEPLOYMENT
+================================================================================
+- Build: `npm run build`
+- Output goes to `/dist` directory.
+- Deploy to Vercel, Netlify, or Hostinger.
+- PocketBase must be deployed to a VPS or managed hosting, and the production URL mapped to the frontend API client.
+
+================================================================================
+(21) TROUBLESHOOTING
+================================================================================
+- "pb is not defined": Ensure `import pb from '@/lib/pocketbaseClient'` is at the top.
+- "Does the file exist?": Check Vite import extensions (`.jsx`).
+- "Objects are not valid as a React child": Ensure you aren't rendering a raw object. Use `item.name`.
+- PB Auto-cancellation: If API calls abort randomly, add `{ $autoCancel: false }` to the options object.
+- Safari OAuth Popups Blocked: Ensure `authWithOAuth2` is called in a synchronous `.then()` chain from the click handler, not `async/await`.
+
+================================================================================
+(22) LEARNING NOTES
+================================================================================
+- Performance: Three.js scenes must dispose of geometry/materials on unmount to prevent severe memory leaks.
+- Contrast: Never nest `text-foreground` inside a `bg-primary` div. Use `text-primary-foreground`.
+- Security: Never expose raw PB admin credentials. Rely on PB's `listRule` and `viewRule` for RLS (Row Level Security).

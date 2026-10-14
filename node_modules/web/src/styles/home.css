@@ -1,0 +1,105 @@
+
+/* 
+  ========================================
+  HOME PAGE STYLES
+  ========================================
+  This file contains simple, easy-to-read CSS rules specifically for the Home Page.
+  It uses the variables defined in variables.css.
+*/
+
+/* 
+  HERO SECTION
+  The large introductory section at the top of the page.
+*/
+.home-hero-section {
+  position: relative;
+  min-height: 100vh; /* Takes up the full height of the screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* The background image container for the hero section */
+.home-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1627975399961-e88bde8a7648');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(50%) brightness(0.4); /* Makes the image darker so text is readable */
+  z-index: 0;
+}
+
+/* A dark gradient overlay to blend the image into the background color */
+.home-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(15, 15, 15, 0.95), rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 1));
+  z-index: 1;
+}
+
+/* The container that holds the text and 3D object in the hero section */
+.home-hero-content {
+  position: relative;
+  z-index: 10; /* Keeps content above the background */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* On larger screens, split the hero content into 2 columns */
+@media (min-width: 1024px) {
+  .home-hero-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 
+  FEATURE CARDS
+  The cards showing "Premium quality", "Instant access", etc.
+*/
+.feature-card {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: all 0.3s ease; /* Smooth animation when hovering */
+}
+
+/* What happens when you hover over a feature card */
+.feature-card:hover {
+  border-color: hsla(var(--primary), 0.4);
+  transform: translateY(-5px); /* Moves the card up slightly */
+}
+
+/* The icon container inside the feature card */
+.feature-icon-wrapper {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  background-color: hsla(var(--primary), 0.1);
+  border: 1px solid hsla(var(--primary), 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Animate the icon wrapper when hovering over the card */
+.feature-card:hover .feature-icon-wrapper {
+  background-color: hsla(var(--primary), 0.2);
+  transform: scale(1.1); /* Makes the icon slightly larger */
+}

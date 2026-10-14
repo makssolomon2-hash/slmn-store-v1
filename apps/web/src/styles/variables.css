@@ -1,0 +1,69 @@
+
+/* 
+  ========================================
+  THEME VARIABLES (COLORS & STYLES)
+  ========================================
+  This file contains all the main colors used across the website.
+  We use CSS Variables (Custom Properties) so you can easily change 
+  a color here and it will update everywhere on the site!
+
+  Colors are written in HSL format (Hue, Saturation, Lightness).
+  Example: 190 100% 50% is a bright cyan.
+*/
+
+@layer base {
+  :root {
+    /* --- MAIN BACKGROUND & TEXT --- */
+    /* The main background color of the website (Dark Grey/Black) */
+    --background: 0 0% 6%;
+    /* The main text color (White) */
+    --foreground: 0 0% 100%;
+
+    /* --- BRAND COLORS --- */
+    /* Primary brand color (Neon Cyan) - Used for main buttons and highlights */
+    --primary: 190 100% 50%;
+    /* Text color that goes on top of primary color (Black for contrast) */
+    --primary-foreground: 0 0% 0%;
+
+    /* Secondary brand color - Used for less important buttons */
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent color - Used for subtle highlights or gradients */
+    --accent: 190 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    /* --- UI ELEMENTS --- */
+    /* Background color for cards (like product cards) */
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+
+    /* Background color for popups and dropdowns */
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Muted colors for secondary text or subtle backgrounds */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    /* Destructive color for errors or delete buttons (Red) */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Colors for borders and input fields */
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    
+    /* Color for focus rings around inputs/buttons */
+    --ring: 190 100% 50%;
+
+    /* --- SHAPES --- */
+    /* How rounded the corners of cards and buttons should be */
+    --radius: 0.75rem;
+
+    /* --- AUDIO PLAYER SPECIFIC --- */
+    --waveform-base: 190 100% 50%;
+    --waveform-opacity: 0.3;
+    --waveform-progress: 190 100% 50%;
+  }
+}
